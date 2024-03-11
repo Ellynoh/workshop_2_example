@@ -1,28 +1,28 @@
 function setup() {
-  createCanvas(640, 480); // Set up a canvas
-  noFill(); // Ensure shapes are not filled
+  createCanvas(600, 400); // Canvas size 600x400
 }
 
 function draw() {
-  background(220); // Clear the background each frame
-  
-  // Draw lines from the mouse position to the edges of the canvas
-  stroke(0); // Set line color to black
-  for (let i = 0; i < width; i += 40) {
-    line(mouseX, mouseY, i, 0); // Top edge
-    line(mouseX, mouseY, i, height); // Bottom edge
-  }
-  for (let j = 0; j < height; j += 40) {
-    line(mouseX, mouseY, 0, j); // Left edge
-    line(mouseX, mouseY, width, j); // Right edge
-  }
-  
-  // Draw an arc that changes its opening angle based on the mouse X position
-  let arcDiameter = 150;
-  let startAngle = 0;
-  let endAngle = map(mouseX, 0, width, 0, TWO_PI); // Map mouseX to a full circle
-  
-  stroke(255, 0, 0); // Set arc color to red
-  arc(width / 2, height / 2, arcDiameter, arcDiameter, startAngle, endAngle);
+  background(220); // Sets a light grey background
+  generateShapes(); // Call to function that handles shapes creation
+  noLoop(); // Disables looping to draw the shapes only once
 }
 
+function generateShapes() {
+  // Fixed position and size for all shapes
+  let x = 150; // Fixed x position
+  let y = 150; // Fixed y position
+  let size = 50; // Fixed size
+  
+  // Drawing 50 circles with fixed position and size
+  for (let i = 0; i < 50; i++) {
+    drawShape(x, y, size); // Call the custom function to draw each shape
+  }
+}
+
+function drawShape(x, y, size) {
+  let noiseVal = noise(x * 0.01, y * 0.01); // Generate a noise value based on position
+  fill(noiseVal * 255, 100, 150); // Apply noise value to the red component for color variation
+  noStroke(); // Shapes without border
+  ellipse(x, y, size, size); // Draw ellipse with fixed size
+}
